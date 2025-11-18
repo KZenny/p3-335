@@ -137,14 +137,16 @@ void replaceMin(PlayerIt first, PlayerIt last, Player& target) {
     size_t heapSize = std::distance(first, last);
 
     while (true) {
+        //Calculate indices of left and right children
         size_t leftChildIdx = 2 * std::distance(first, current) + 1;
         size_t rightChildIdx = 2 * std::distance(first, current) + 2;
         PlayerIt leftChild = first + leftChildIdx;
         PlayerIt rightChild = first + rightChildIdx;
 
-        // Find the smallest child
+        // Set the smallest child to current node
         PlayerIt smallest = current;
 
+        //Find the smallest among current, left child, and right child
         if (leftChildIdx < heapSize && *leftChild < *smallest) {
             smallest = leftChild;
         }
@@ -198,10 +200,12 @@ RankingResult rankIncoming(PlayerStream& stream, const size_t& reporting_interva
     //Start timer for elapsed_
     auto start = std::chrono::high_resolution_clock::now();
 
+    //Creates a vector to store the top players and a map for cutoffs
     std::vector<Player> topPlayers;
     std::unordered_map<size_t, size_t> cutoffs;
     size_t playerCount = 0;
 
+    //Process the stream until no players remain
     while (stream.remaining() > 0) {
         Player currentPlayer = stream.nextPlayer();
         playerCount++;

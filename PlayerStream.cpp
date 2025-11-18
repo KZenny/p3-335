@@ -24,8 +24,7 @@ Player VectorPlayerStream::nextPlayer() {
         throw std::runtime_error("No more players to fetch");
     }
 
-
-    return players_[index_++]; 
+    return players_[index_++]; // Return the current player and increment index
 }
 
 /**
@@ -34,5 +33,5 @@ Player VectorPlayerStream::nextPlayer() {
 * @return The count of players left to be read.
 */
 size_t VectorPlayerStream::remaining() const { // see how many instances remaining to be fetched
-    return players_.size() - index_; 
+    return players_.size() - index_; // Returns the number of players left to be read
 }
