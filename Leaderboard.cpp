@@ -17,6 +17,7 @@ RankingResult::RankingResult(const std::vector<Player>& top, const std::unordere
 {
 }
 
+namespace Offline {
 /**
  * @brief Uses an early-stopping version of heapsort to
  *        select and sort the top 10% of players in-place
@@ -96,7 +97,8 @@ RankingResult quickSelectRank(std::vector<Player>& players) {
     //Return the Ranking Result object
     return RankingResult(topPlayers, {}, elapsed);
 }
-
+};
+namespace Online {
 /**
  * @brief A helper method that replaces the minimum element
  * in a min-heap with a target value & preserves the heap
@@ -122,7 +124,7 @@ RankingResult quickSelectRank(std::vector<Player>& players) {
  * - The contents of `target` is not guaranteed to match its original state
  *   (ie. you may move it).
  */
-void replaceMin(Online::PlayerIt first, Online::PlayerIt last, Player& target) {
+void replaceMin(PlayerIt first, PlayerIt last, Player& target) {
     if (first == last) {
         return; // Empty heap, nothing to replace
     }
@@ -131,17 +133,17 @@ void replaceMin(Online::PlayerIt first, Online::PlayerIt last, Player& target) {
     *first = target;
 
     // Percolate down to restore the min-heap property
-    Online::PlayerIt current = first;
+    PlayerIt current = first;
     size_t heapSize = std::distance(first, last);
 
     while (true) {
         size_t leftChildIdx = 2 * std::distance(first, current) + 1;
         size_t rightChildIdx = 2 * std::distance(first, current) + 2;
-        Online::PlayerIt leftChild = first + leftChildIdx;
-        Online::PlayerIt rightChild = first + rightChildIdx;
+        PlayerIt leftChild = first + leftChildIdx;
+        PlayerIt rightChild = first + rightChildIdx;
 
         // Find the smallest child
-        Online::PlayerIt smallest = current;
+        PlayerIt smallest = current;
 
         if (leftChildIdx < heapSize && *leftChild < *smallest) {
             smallest = leftChild;
@@ -233,3 +235,4 @@ RankingResult rankIncoming(PlayerStream& stream, const size_t& reporting_interva
     //Return the Ranking Result object
     return RankingResult(topPlayers, cutoffs, elapsed);
 }
+};
