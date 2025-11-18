@@ -46,7 +46,7 @@ RankingResult heapRank(std::vector<Player>& players) {
 
     //Extract the top players from players heap
     for (size_t i = 0; i < topCount; ++i) {
-        std::pop_heap(players.begin(), players.end() - i); //Places the top player to the end of heap
+        std::pop_heap(players.begin(), players.end()); //Places the top player to the end of heap
         topPlayers.push_back(players.back()); //Add the top player to topPlayers
         players.pop_back(); // Removes the top player from the heap
     }
