@@ -52,7 +52,8 @@ public:
  */
 class VectorPlayerStream : public PlayerStream {
 private:
-    // Your private members here. You're the designer now!
+    std::vector<Player> players_; //The vector of Player objects to stream
+    size_t index_; //The current index in the vector to read from
 
 public:
     /**
